@@ -1,6 +1,8 @@
 Implement 'Missionaries and Cannibals' in 20 different languages
 ===================================
 
+http://en.wikipedia.org/wiki/Missionaries_and_cannibals_problem
+
 I keep thinking "I want to learn language X", but never know what to implement. So I'm setting myself a
 challenge to implement a basic AI search space algorithm in (starting with) 20 different languages.
 
