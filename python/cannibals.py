@@ -1,14 +1,13 @@
-from numpy import array as na
-from numpy import diff
+import numpy
 from collections import deque
 
 class Node(object):
     # [<missionaries>,<cannibals>,<boat>] on the wrong side
-    goal = na([0,0,0])
-    possible_moves = (na([1,0,1]),na([2,0,1]),na([0,1,1]),na([0,2,1]),na([1,1,1]))
+    goal = numpy.array([0,0,0])
+    possible_moves = (numpy.array([1,0,1]),numpy.array([2,0,1]),numpy.array([0,1,1]),numpy.array([0,2,1]),numpy.array([1,1,1]))
     max_depth = 15
     
-    def __init__(self, state=na([3,3,1]), parent=None, to_goal_bank=True):
+    def __init__(self, state=numpy.array([3,3,1]), parent=None, to_goal_bank=True):
         self.state = state
         self.parent = parent
         self.to_goal_bank = to_goal_bank
@@ -25,7 +24,8 @@ class Node(object):
     def __unicode__(self):
         return u'{0}'.format(self.state)
     
-    def dfs(self, depth=0):
+    def dfs(self):
+        depth = 0
         examined = set()
         stack = self.children()
         while stack:
@@ -34,6 +34,8 @@ class Node(object):
             examined.update([node])
             if node.is_goal():
                 return node
+            depth += 1
+            if depth >= self.max_depth: break
             stack.extend(node.children())
         return None
         
@@ -73,18 +75,18 @@ class Node(object):
         return
         
     def get_moves(self):
-        return abs(diff(na([node.state for node in list(self.get_path_to_root())[::-1]]), axis=0))
+        return abs(numpy.diff(numpy.array([node.state for node in list(self.get_path_to_root())[::-1]]), axis=0))
 
 def tests():
-    assert Node(na([3,3,1])).is_valid()
-    assert Node(na([2,2,0])).is_valid()
-    assert Node(na([3,1,0])).is_valid()
-    assert Node(na([1,2,1])).is_valid() == False
-    assert Node(na([2,1,0])).is_valid() == False
-    assert Node(na([-1,2,1])).is_valid() == False
-    assert Node(na([2,-1,0])).is_valid() == False
-    assert Node(na([0,0,0])).is_goal()
-    assert Node(na([0,1,1])).is_goal() == False
+    assert Node(numpy.array([3,3,1])).is_valid()
+    assert Node(numpy.array([2,2,0])).is_valid()
+    assert Node(numpy.array([3,1,0])).is_valid()
+    assert Node(numpy.array([1,2,1])).is_valid() == False
+    assert Node(numpy.array([2,1,0])).is_valid() == False
+    assert Node(numpy.array([-1,2,1])).is_valid() == False
+    assert Node(numpy.array([2,-1,0])).is_valid() == False
+    assert Node(numpy.array([0,0,0])).is_goal()
+    assert Node(numpy.array([0,1,1])).is_goal() == False
     assert Node().is_goal() == False
 
 tests()
@@ -95,12 +97,12 @@ def format_move(current_state, move):
     return 'M'*current_state[0] + 'C'*current_state[1] + ' ' + '<'*left_arrow+'--' + 'M'*move[0]+ 'C'*move[1] +'--' + '>'*right_arrow + ' ' + 'M'*(3-current_state[0]) + 'C'*(3-current_state[1]) 
 
 def run():
-    print 'Breadth First: '
+    print 'Breadth First: \n'
     goal = Node().bfs()
     for node, move in zip(list(goal.get_path_to_root())[::-1], goal.get_moves()):
         print format_move(node.state, move)
     
-    print 'Depth First: '
+    print '\nDepth First: \n'
     goal = Node().dfs()
     for node, move in zip(list(goal.get_path_to_root())[::-1], goal.get_moves()):
         print format_move(node.state, move)
