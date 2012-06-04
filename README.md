@@ -19,6 +19,7 @@ Languages I know:
 * Javascript
 * Java
 * C# (and VB but I'll skip that)
+* PHP
 
 Languages I've tried:
 
@@ -26,6 +27,7 @@ Languages I've tried:
 * C
 * C++
 * Ruby
+* Lua
 
 Languages that seem interesting:
 
@@ -33,6 +35,7 @@ Languages that seem interesting:
 * Haskell
 * Erlang
 * Clojure
+* Scala
 
 Other:
 
@@ -40,6 +43,7 @@ Other:
 * Go
 * D
 * ML (of some description.. OCaml maybe)
+* Bash
 
 That seems like a good list to start with. I'll require myself to do one from each category before 
 attempting another in the same category. Otherwise, I'm likely to implement the ones in the 
