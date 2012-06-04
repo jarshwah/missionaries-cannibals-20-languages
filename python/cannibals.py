@@ -1,4 +1,5 @@
 from numpy import array as na
+from numpy import diff
 from collections import deque
 
 class Node(object):
@@ -11,7 +12,6 @@ class Node(object):
         self.state = state
         self.parent = parent
         self.to_goal_bank = to_goal_bank
-        self.examined = set()
     
     def __eq__(self, other):
         return (self.state == other.state).all()
@@ -26,22 +26,24 @@ class Node(object):
         return u'{0}'.format(self.state)
     
     def dfs(self, depth=0):
+        examined = set()
         stack = self.children()
         while stack:
             node = stack.pop()
-            if node in self.examined: continue
-            self.examined.update([node])
+            if node in examined: continue
+            examined.update([node])
             if node.is_goal():
                 return node
             stack.extend(node.children())
         return None
         
     def bfs(self):
+        examined = set() # memoize reduces ~ 11,000 nodes to ~ 30
         queue = deque(self.children())
         while queue:
             node = queue.popleft()
-            if node in self.examined: continue
-            self.examined.update([node])
+            if node in examined: continue
+            examined.update([node])
             if node.is_goal():
                 return node
             queue.extend(node.children())
@@ -69,6 +71,9 @@ class Node(object):
             yield node
             node = node.parent
         return
+        
+    def get_moves(self):
+        return abs(diff(na([node.state for node in list(self.get_path_to_root())[::-1]]), axis=0))
 
 def tests():
     assert Node(na([3,3,1])).is_valid()
@@ -84,11 +89,21 @@ def tests():
 
 tests()
 
+def format_move(current_state, move):
+    right_arrow = int(current_state[2])
+    left_arrow = int(not current_state[2])
+    return 'M'*current_state[0] + 'C'*current_state[1] + ' ' + '<'*left_arrow+'--' + 'M'*move[0]+ 'C'*move[1] +'--' + '>'*right_arrow + ' ' + 'M'*(3-current_state[0]) + 'C'*(3-current_state[1]) 
+
 def run():
-    for node in list(Node().bfs().get_path_to_root())[::-1]:
-        print node
-    for node in list(Node().dfs().get_path_to_root())[::-1]:
-        print node
+    print 'Breadth First: '
+    goal = Node().bfs()
+    for node, move in zip(list(goal.get_path_to_root())[::-1], goal.get_moves()):
+        print format_move(node.state, move)
+    
+    print 'Depth First: '
+    goal = Node().dfs()
+    for node, move in zip(list(goal.get_path_to_root())[::-1], goal.get_moves()):
+        print format_move(node.state, move)
 
 if __name__ == '__main__':
     run()
