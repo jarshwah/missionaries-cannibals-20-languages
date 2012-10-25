@@ -93,13 +93,14 @@ tests()
 
 def format_move(current_state, move):
     right_arrow = int(current_state[2])
-    left_arrow = int(not current_state[2])
+    left_arrow = not right_arrow
     return 'M'*current_state[0] + 'C'*current_state[1] + ' ' + '<'*left_arrow+'--' + 'M'*move[0]+ 'C'*move[1] +'--' + '>'*right_arrow + ' ' + 'M'*(3-current_state[0]) + 'C'*(3-current_state[1]) 
 
 def run():
     print 'Breadth First: \n'
     goal = Node().bfs()
     for node, move in zip(list(goal.get_path_to_root())[::-1], goal.get_moves()):
+        print node.state, move, node
         print format_move(node.state, move)
     
     print '\nDepth First: \n'
