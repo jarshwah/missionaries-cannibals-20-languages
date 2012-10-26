@@ -67,8 +67,6 @@ class Node
             if node.goal? then return node end
             queue.push(*node.children)
         end
-        # check child for goal?
-        # add children to queue
     end
 
 end
@@ -88,7 +86,6 @@ def tests
     fail unless Node.new(State[3,3,1]).children == 
         [Node.new(Vector[3,2,0]), Node.new(Vector[3,1,0]), Node.new(Vector[2,2,0])]
     fail unless Node.new().find_goal.state == State[0,0,0]
-    puts "All tests passed"
 end
 tests
 
@@ -101,8 +98,9 @@ def run
     end
 
     # zip nodes with nodes+1, take the diff which gives us the move, then zip moves with nodes
-    nodes[0..-1].zip(nodes[0..-2].zip(nodes[1..-1]).map{ |parent,child| parent.state-child.state }).
-        each do |node, move|
+    nodes[0..-1].zip(
+        nodes[0..-2].zip(nodes[1..-1]).map{ |parent,child| parent.state-child.state }
+        ).each do |node, move|
             if node.nil? or move.nil? then break end
             s = node.state
             m = move
@@ -126,6 +124,7 @@ Things I got stuck on (and had to look up):
     - comprehensions / map|collect|select (a little like LINQ which is nice)
     - overriding to_s (must evaluate to a string, not just an object) ie. to_s isn't implicitly called
     - when to use () and when to use {} {blocks?}
+    - cant absolute a vector
 =end
 
 
