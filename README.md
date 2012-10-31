@@ -15,7 +15,7 @@ and the general solution. I can focus more on the language rather than the probl
 
 Languages I know:
 
-* Python
+* ~~Python~~
 * Javascript
 * Java
 * C# (and VB but I'll skip that)
@@ -26,7 +26,7 @@ Languages I've tried:
 * Common Lisp
 * C
 * C++
-* Ruby
+* ~~Ruby~~
 * Lua
 
 Languages that seem interesting:
