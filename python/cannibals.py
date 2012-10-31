@@ -39,7 +39,7 @@ class Node(object):
         while queue:
             node = queue.popleft()
             if node in examined: continue
-            examined.update([node])
+            examined.add(node)
             if node.is_goal():
                 return node
             queue.extend(node.children())
