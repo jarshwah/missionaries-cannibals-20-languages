@@ -34,14 +34,13 @@ Languages that seem interesting:
 * ~~Go~~
 * F#
 * Haskell
-* Erlang
 * Clojure
 * Scala
 
 Other:
 
 * Objective C
-* Go
+* Erlang
 * D
 * ML (of some description.. OCaml maybe)
 * Bash
