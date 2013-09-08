@@ -31,7 +31,7 @@ Languages I've tried:
 
 Languages that seem interesting:
 
-# ~~Go~~
+* ~~Go~~
 * F#
 * Haskell
 * Erlang
