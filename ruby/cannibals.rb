@@ -6,7 +6,7 @@ State = Vector
 class Node
     @@goal = State[0,0,0]
     @@start = State[3,3,1]
-    @@allowed_moves = [ 
+    @@allowed_moves = [
         State[1,0,1],
         State[2,0,1],
         State[0,1,1],
@@ -15,7 +15,7 @@ class Node
     ]
 
     attr_accessor :state, :parent, :to_goal
-    
+
     def initialize(state = @@start, parent = nil, to_goal = true)
         @state = state
         @parent = parent
@@ -51,7 +51,7 @@ class Node
     end
 
     def transition(move)
-        Node.new(@to_goal ? @state-move : @state+move, self, !@to_goal)
+        Node.new(@to_goal ? @state - move : @state + move, self, !@to_goal)
     end
 
     def children
@@ -83,7 +83,7 @@ def tests
     fail unless Node.new(State[0,0,0]).goal?
     fail unless Node.new(State[3,3,1]).transition(State[1,1,1]).state == State[2,2,0]
     fail if Node.new(State[3,3,1]).transition(State[1,1,1]).state == State[2,2,1]
-    fail unless Node.new(State[3,3,1]).children == 
+    fail unless Node.new(State[3,3,1]).children ==
         [Node.new(Vector[3,2,0]), Node.new(Vector[3,1,0]), Node.new(Vector[2,2,0])]
     fail unless Node.new().find_goal.state == State[0,0,0]
 end
