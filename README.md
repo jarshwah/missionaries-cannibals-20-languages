@@ -7,7 +7,7 @@ I keep thinking "I want to learn language X", but never know what to implement. 
 challenge to implement a basic AI search space algorithm in (starting with) 20 different languages.
 
 I wanted a 'game-like' challenge but nothing that dealt with graphics (a whole other challenge right there). I also
-wanted something a little more advanced than hello world - algorithms and data structures mainly. Anything too 
+wanted something a little more advanced than hello world - algorithms and data structures mainly. Anything too
 complicated (or even slightly complicated really) and I'm likely to put it off.
 
 The added benefit is that I've implemented this before in Uni about 8 years ago using Lisp, so I know the problem
@@ -31,6 +31,7 @@ Languages I've tried:
 
 Languages that seem interesting:
 
+# ~~Go~~
 * F#
 * Haskell
 * Erlang
@@ -45,8 +46,8 @@ Other:
 * ML (of some description.. OCaml maybe)
 * Bash
 
-That seems like a good list to start with. I'll require myself to do one from each category before 
-attempting another in the same category. Otherwise, I'm likely to implement the ones in the 
+That seems like a good list to start with. I'll require myself to do one from each category before
+attempting another in the same category. Otherwise, I'm likely to implement the ones in the
 languages I know, then get lazy and not do the rest, completely ruining the point of this.
 
 After round 1 (the first 4 languages), I will re-assess whether 'missionaries and cannibals' is the right
