@@ -61,16 +61,16 @@ func (s state) Solve() state {
     goal := state{0, 0, 0, nil}
     examined := make(map[string]bool, 32)
     queue := s.Moves()
-    idx := 0
+    var node state
     for {
-        node := queue[idx]
-        idx++
+        node, queue = queue[0], queue[1:]
         if node.Equals(goal) { return node }
         if _, ok := examined[node.String()]; ok { continue }
         examined[node.String()] = true
         for _, move := range node.Moves() {
             queue = append(queue, move)
         }
+
     }
 }
 
@@ -95,3 +95,35 @@ func tests() {
     s2 := state{2,2,0,nil}; if !s2.Equals(s) { panic("Failure") }
     s3 := state{1,2,0,nil}; if s3.Equals(s) { panic("Failure") }
 }
+
+/*
+
+Things I had issues with:
+
+- No built in vector; used slices instead but had to implement own "vector math"
+- No built in queue; seen priority queue with containers/heap but unsure of
+  order when priorties are the same. Didn't test, but documentation could have explained
+- Lots of missing datastructurese (the general of above)
+- (wrong, see below) slice = slice[1:] didn't do what I expect, making this pattern difficult:
+  queue = []int{0,1,2,3}
+  head, queue = queue[0],queue[1:]
+  queue[0] == 0 // I expected it to be 1 with reassignment
+- slice = slice[1:] DOES do what I expect. My issue was with scoping
+  I was doing slice := slice[1:] within the loop, then the next iteration was using
+  the parent scope slice, not the "new" one that was local.
+- No operator overloading, meaning you have to define your own Equals function and
+  identity method
+- nil members got me for awhile until I realised I just had to use a pointer
+- I dont like that append is a builtin and not a function of the slice type
+- Couldn't figure out how to create static members to avoid re-allocating possibilities
+
+Things I liked:
+
+- Concise, with fairly good documentation
+- Feels like writing python
+- slices are nice (but append(slice, otherslice) is missing)
+- really easy to install and run
+- great compiler errors and messages
+
+
+*/
