@@ -124,6 +124,8 @@ Things I liked:
 - slices are nice (but append(slice, otherslice) is missing)
 - really easy to install and run
 - great compiler errors and messages
+- the idea of interfaces is good, but no need for them here
+- same goes for channels and go routines
 
 
 */
